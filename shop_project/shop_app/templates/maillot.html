@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<title></title>
+</head>
+<body>
+<h1>{{ maillot.name }}</h1>
+<h1>{{ maillot.description }}</h1>
+<h1>{{ maillot.price }}</h1>
+<img class="img-thumbnail"src="http://{{ request.get_host}}/{{ client.maillot_picture }}">
+
+</body>
+</html>
