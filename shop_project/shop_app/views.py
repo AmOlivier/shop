@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from shop_app.models import Product , Client, Maillot
+from shop_app.models import Product , Client, Maillot, Comment
+from shop_app.forms import CommentForm
+import datetime 
 
 # Create your views here.
 def index(request):
@@ -7,7 +9,8 @@ def index(request):
    return render(request,"index.html",context={'products':products})
 def product(request,product_id):
 	product = Product.objects.get(id=product_id)
-	return render(request,"product.html",context={'product': product })
+	comments = Comment.objects.all().filter(product_id=product.id)
+	return render(request,"product.html",context={'product': product, 'comments':comments })
 
 def clients(request):
 	clients = Client.objects.all()[:20]
@@ -24,3 +27,16 @@ def maillots(request):
 def maillot(request, maillot_id):
 	maillot = Maillot.objects.get(id=maillot_id)
 	return render(request, "maillot.html", context={'maillot': maillot })
+
+def comment_form(request, product_id):
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		text = request.POST.get('text')
+		product = Product.objects.get(id=product_id)
+		date = datetime.datetime.now()
+		Comment.objects.get_or_create(username=username,text=text,date=date,product=product)
+	
+
+	
+	comment_form = CommentForm()
+	return render(request, "comment_form.html", context={'comment_form': comment_form })

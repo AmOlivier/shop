@@ -33,7 +33,7 @@ class Maillot(models.Model):
 	name = models.CharField(max_length=264)
 	description = models.TextField()
 	price = models.DecimalField(max_digits=5, decimal_places=2)
-	maillot_picture = models.ImageField(default="static/images/maillot_pictures/maillotdefaut.jpg", upload_to='static/images/maillots_pictures/' )
+	maillot_picture = models.ImageField(default="static/images/maillots_pictures/maillotdefaut.jpg", upload_to='static/images/maillots_pictures/' )
 
 
 	def __str__(self):
@@ -43,7 +43,22 @@ class Maillot(models.Model):
 	def __repr__(self):
 		return "<Client {}>".format(self.name)
 
+class Comment(models.Model):
+	username = models.CharField(max_length=264)
+	text = models.TextField()
+	date = models.DateField()
+	product = models.ForeignKey(Product , on_delete=models.CASCADE)
 
+
+	def __str__(self):
+		return self.username
+
+	
+	def __repr__(self):
+		return "<Client {}>".format(self.username)
+
+
+		
 
 
 # class ImageField(upload_to=None, height_field=None, width_field=None, max_length=100 **options)
