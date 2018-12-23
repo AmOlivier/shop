@@ -58,7 +58,39 @@ class Comment(models.Model):
 		return "<Client {}>".format(self.username)
 
 
-		
+class Question(models.Model):
+	username = models.CharField(max_length=264)
+	title = models.CharField(max_length=264)
+	text = models.TextField()
+	product = models.ForeignKey(Product , on_delete=models.CASCADE)
 
+	def __str__(self):
+		return self.username
+
+	def __repr__(self):
+		return "<Client {}>".format(self.text)	
+
+			
+class Response(models.Model):
+	username = models.CharField(max_length=264)
+	text = models.TextField()
+	question = models.ForeignKey(Question , on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.username
+
+	def __repr__(self):
+		return "<Client {}>".format(self.text)
+
+class CommentResponse(models.Model):
+	username = models.CharField(max_length=264)
+	text = models.TextField()
+	comment = models.ForeignKey(Comment , on_delete=models.CASCADE)	
+
+	def __str__(self):
+		return self.username
+
+	def __repr__(self):
+		return "<Client {}>".format(self.text)	
 
 # class ImageField(upload_to=None, height_field=None, width_field=None, max_length=100 **options)
